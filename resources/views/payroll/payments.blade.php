@@ -114,6 +114,17 @@
 					<td class="text-capitalize"></td>
 					<td class="text-capitalize">₦{{ number_format($payroll->netIncome()) }}</td>
 				</tr>
+				<tr>
+					<td class="text-capitalize"><strong>Account </strong></td>
+					<td class="text-capitalize">{{ $payroll->bank }}</td>
+					<td class="text-capitalize">{{ $payroll->account_name }} ({{ $payroll->account_no }})</td>
+					<td>
+						@if ($payroll->paid)
+							<a href="" class="btn btn-success" disabled="">Paid</a> </td>
+				@else
+						<a href="{{ route('payrolls.pay',$payroll->id) }}" class="btn btn-primary">Pay Now</a> </td>
+					@endif
+				</tr>
 			@else
 				<tr>
 					<th colspan="5" class="text-center">Empty</th>

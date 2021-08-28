@@ -11,7 +11,10 @@ class Payroll extends Model
 	
 	protected $dates = ['deleted_at'];
 	
-	protected $fillable=['employee_id','over_time','hours','rate','total'];
+	protected $fillable=['employee_id','over_time','hours','rate','total',
+        'account_name', 'account_no', 'bank'
+
+    ];
 
     public $with = ['payments'];
 

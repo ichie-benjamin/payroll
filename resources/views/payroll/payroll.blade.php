@@ -29,10 +29,11 @@
 
 	<table class= "table table-hover" id="filterTable">
 		<thead>	
-			<th>Date-issued</td>
-			<th>Over-Time</th>
-			<th>Hours</th>
-			<th>Rate</th>
+			<th>Date-issued</th>
+			<th>Paid</th>
+			<th>Bank name</th>
+			<th>Account Name</th>
+			<th>Account No.</th>
 			<th>Gross</th>
 			<th>Download</th>
 			<th>Edit</th>	
@@ -46,14 +47,15 @@
 					<tr>		
 						<td>{{ $payroll->created_at->toDateString() }}
 						<td>
-							@if($payroll->over_time)
+							@if($payroll->paid)
 								<p><b>Yes</b></p>				
 							@else
 								<p><b>No</b></p>							
 							@endif				
 						</td>
-						<td>{{ $payroll->hours }}</td>
-						<td>{{ $payroll->rate }}</td>
+						<td>{{ $payroll->bank }}</td>
+						<td>{{ $payroll->account_name }}</td>
+						<td>{{ $payroll->account_no }}</td>
 						<td>{{ $payroll->gross }}</td>
 						
 						<td><a href="{{ route('singlepayroll.pdf', ['id'=>$payroll->id]) }}" class="btn btn-info">PDF</a></td>

@@ -35,6 +35,7 @@ Route::delete('/payrolls/delete/{id}', 'PayrollController@destroy')->name('payro
 Route::get('/payroll/bin', 'PayrollController@bin')->name('payrolls.bin');
 Route::get('/payroll/restore/{id}', 'PayrollController@restore')->name('payrolls.restore');
 Route::get('/payroll/kill/{id}', 'PayrollController@kill')->name('payrolls.kill');
+Route::get('/payroll/pay/{id}', 'PayrollController@pay')->name('payrolls.pay');
 
 Route::get('/payroll/payments/{id}', 'PayrollController@payments')->name('payment.index');
 Route::post('/payroll/payment/store/{id}', 'PayrollController@paymentStore')->name('payrolls.payment.store');

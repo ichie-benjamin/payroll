@@ -23,7 +23,31 @@ class PayrollController extends Controller
      */
     public function create($id){
         $employee = Employee::findOrFail($id);
-		return view('payroll.create')->with('employee',$employee);
+        $banks = [
+            'Access Bank Plc',
+'Citibank Nigeria Limited ',
+'Ecobank Nigeria Plc ',
+'Fidelity Bank Plc ',
+'FIRST BANK NIGERIA LIMITED ',
+'First City Monument Bank Plc ',
+'Globus Bank Limited ',
+'Guaranty Trust Bank Plc ',
+'Heritage Banking Company Ltd.',
+        'Key Stone Bank ',
+'Polaris Bank ',
+'Providus Bank',
+        'Stanbic IBTC Bank Ltd.',
+     	'Standard Chartered Bank Nigeria Ltd.',
+    'Sterling Bank Plc ',
+'SunTrust Bank Nigeria Limited ',
+'Titan Trust Bank Ltd ',
+'Union Bank of Nigeria Plc ',
+'United Bank For Africa Plc',
+                      'Unity Bank Plc ',
+'Wema Bank Plc ',
+'Zenith Bank Plc ',
+        ];
+		return view('payroll.create')->with(['employee' => $employee,'banks' => $banks]);
     }
     public function payments($id){
         $payroll = Payroll::findOrFail($id);
@@ -38,19 +62,19 @@ class PayrollController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $id){
-		
-	   $this->validate($request,[
-			'hours'=> 'required',
-			'rate'=>'required',
-			'over_time' => 'required|bool'
-		]);
-		
-	    $payroll = Payroll::create([
-			'hours' => $request->hours,
-			'rate' => $request->rate,
-			'over_time' => $request->over_time,
-			'employee_id' => $id
-		]);
+        $this->validate($request,[
+            'bank'=> 'required',
+            'account_name'=>'required',
+            'account_no'=>'required',
+        ]);
+
+        $payroll = Payroll::create([
+            'bank' => $request->bank,
+            'account_name' => $request->account_name,
+            'account_no' => $request->account_no,
+            'employee_id' => $id
+
+        ]);
 		
 		$payroll->grossPay();
 		$payroll->save();
@@ -96,7 +120,32 @@ class PayrollController extends Controller
      */
     public function edit($id){
         $payroll = Payroll::findOrFail($id);
-		return view('payroll.edit')->with('payroll',$payroll);
+        $banks = [
+            'Access Bank Plc',
+            'Citibank Nigeria Limited ',
+            'Ecobank Nigeria Plc ',
+            'Fidelity Bank Plc ',
+            'FIRST BANK NIGERIA LIMITED ',
+            'First City Monument Bank Plc ',
+            'Globus Bank Limited ',
+            'Guaranty Trust Bank Plc ',
+            'Heritage Banking Company Ltd.',
+            'Key Stone Bank ',
+            'Polaris Bank ',
+            'Providus Bank',
+            'Stanbic IBTC Bank Ltd.',
+            'Standard Chartered Bank Nigeria Ltd.',
+            'Sterling Bank Plc ',
+            'SunTrust Bank Nigeria Limited ',
+            'Titan Trust Bank Ltd ',
+            'Union Bank of Nigeria Plc ',
+            'United Bank For Africa Plc',
+            'Unity Bank Plc ',
+            'Wema Bank Plc ',
+            'Zenith Bank Plc ',
+        ];
+
+        return view('payroll.edit')->with(['payroll' => $payroll, 'banks' => $banks]);
     }
 
     /**
@@ -106,18 +155,21 @@ class PayrollController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function pay($id){
+        $payroll = Payroll::findOrFail($id);
+        $payroll->paid = 1;
+        $payroll->save();
+        return redirect()->back()->with('success','payment maid');
+    }
+
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-			'hours'=> 'required',
-			'rate'=>'required',
-			'over_time' => 'required|bool'
-		]);
-		
+
 		$payroll = Payroll::findOrFail($id);
-		$payroll->hours = $request->hours;
-		$payroll->rate= $request->rate;
-		$payroll->over_time = $request->over_time;
+		$payroll->bank = $request->bank;
+		$payroll->account_name= $request->account_name;
+		$payroll->account_no = $request->account_no;
 		$payroll->save();		
 		
 		$payroll->grossPay();

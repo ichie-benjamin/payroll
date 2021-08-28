@@ -18,31 +18,32 @@
 			class="form-horizontal">
 				{{ csrf_field() }}
 				{{ method_field('PATCH') }}
-			
+
 			<div class="form-group">
-				<label class="control-label col-md-1" for="over_time">Overtime:</label>
+				<label class="control-label col-md-1" for="over_time">Bank:</label>
 				<div class="col-md-4">
-					<select name="over_time" id="over_time" class="form-control">
-						<option value="1">Yes</option>
-						<option value="0">No</option>					
+					<select name="bank" id="bank" class="form-control">
+						@foreach($banks as $item)
+							<option value="{{ $item }}">{{ $item }}</option>
+						@endforeach
 					</select>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
-				<label class="control-label col-md-1" for="hours">Hours: </label>
-				<div class="col-md-4">					
-					<input type="number" name="hours" class="form-control">		
+				<label class="control-label col-md-1" for="account">Account Name : </label>
+				<div class="col-md-4">
+					<input type="text" name="account_name" class="form-control">
 				</div>
 			</div>
-			
+
 			<div class="form-group">
-				<label class="control-label col-md-1" for="rate">Rate: </label>
+				<label class="control-label col-md-1" for="account">Account Number : </label>
 				<div class="col-md-4">
-					<input type="number" name="rate" class="form-control">	
+					<input type="text" name="account_no" class="form-control">
 				</div>
-			</div>			
-			
+			</div>
+
 			<div class="col-lg-4 text-center">
 				<button class="btn btn-success" type="submit" >Update</button>
 			</div>
